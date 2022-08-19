@@ -19,13 +19,13 @@ public class MD5Util {
 
     //第一次加密
     public static String inputPassToFromPass(String inputPass){
-        String str = salt.charAt(0) + salt.charAt(2) + inputPass + salt.charAt(5) + salt.charAt(4);
+        String str = "" + salt.charAt(0) + salt.charAt(2) + inputPass + salt.charAt(5) + salt.charAt(4);
         return md5(str);
     }
 
     //第二次加密
     public static String fromPassToDBPass(String formPass,String salt){
-        String str = salt.charAt(0) + salt.charAt(2) + formPass + salt.charAt(5) + salt.charAt(4);
+        String str = "" + salt.charAt(0) + salt.charAt(2) + formPass + salt.charAt(5) + salt.charAt(4);
         return md5(str);
     }
 
@@ -39,7 +39,7 @@ public class MD5Util {
         //09a5656540c8a9567ca8ced2cdd58159
         System.out.println(inputPassToFromPass("123456"));
         //af279ed7f0930dcef9b637889603876d
-        System.out.println(fromPassToDBPass("09a5656540c8a9567ca8ced2cdd58159","yuanBoss"));
+        System.out.println(fromPassToDBPass("35dceab561dcc6be77ad3267536b1b5e","yuanBoss"));
         //af279ed7f0930dcef9b637889603876d
         System.out.println(inputPassToDBPass("123456","yuanBoss"));
 

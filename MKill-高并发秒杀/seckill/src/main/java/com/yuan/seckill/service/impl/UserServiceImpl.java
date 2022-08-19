@@ -2,6 +2,7 @@ package com.yuan.seckill.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yuan.seckill.entity.User;
+import com.yuan.seckill.exception.GlobalException;
 import com.yuan.seckill.mapper.UserMapper;
 import com.yuan.seckill.service.IUserService;
 import com.yuan.seckill.utils.MD5Util;
@@ -50,11 +51,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = userMapper.selectById(mobile);
         //判断是否存在这个用户
         if (null == user){
-            return RespBean.error(RespBeanEnum.LOGIN_ERROR);
+            throw new GlobalException(RespBeanEnum.LOGIN_ERROR);
         }
         //校验密码
         if (!MD5Util.fromPassToDBPass(password,user.getSalt()).equals(user.getPassword())){
-            return RespBean.error(RespBeanEnum.LOGIN_ERROR);
+            throw new GlobalException(RespBeanEnum.LOGIN_ERROR);
         }
 
         return RespBean.success();

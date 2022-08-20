@@ -5,14 +5,19 @@ import com.yuan.seckill.entity.User;
 import com.yuan.seckill.exception.GlobalException;
 import com.yuan.seckill.mapper.UserMapper;
 import com.yuan.seckill.service.IUserService;
+import com.yuan.seckill.utils.CookieUtil;
 import com.yuan.seckill.utils.MD5Util;
-import com.yuan.seckill.utils.ValidatorUtil;
+import com.yuan.seckill.utils.UUIDUtil;
 import com.yuan.seckill.utils.vo.LoginVo;
 import com.yuan.seckill.utils.vo.RespBean;
 import com.yuan.seckill.utils.vo.RespBeanEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>
@@ -27,6 +32,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RedisTemplate redisTemplate;
     /**
      * @Author yuan_boss
      * @Description 登录逻辑
@@ -35,7 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      **/
     @Override
-    public RespBean doLogin(LoginVo loginVo) {
+    public RespBean doLogin(LoginVo loginVo, HttpServletRequest request, HttpServletResponse response) {
         String mobile = loginVo.getMobile();
         String password = loginVo.getPassword();
         //参数校验
@@ -58,6 +65,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             throw new GlobalException(RespBeanEnum.LOGIN_ERROR);
         }
 
+        //生成cookie
+        String ticket = UUIDUtil.uuid();
+        //request.getSession().setAttribute("ticket",user);
+        //将用户信息存入redis中
+        redisTemplate.opsForValue().set("user:" + ticket,user);
+        CookieUtil.setCookie(request,response,"userTicket",ticket);
         return RespBean.success();
+    }
+
+    /**
+     * @Author yuan_boss
+     * @Description 根据cookie获取用户
+     * @Date 10:33 2022/8/20
+     * @Param
+     * @return
+     **/
+    @Override
+    public User getUserByCookie(String userTicket,HttpServletRequest request,HttpServletResponse response) {
+
+        if (StringUtils.isEmpty(userTicket)) {
+            return null;
+        }
+        User user = (User) redisTemplate.opsForValue().get("user:" + userTicket);
+        if (user != null) {
+            CookieUtil.setCookie(request,response,"userTicket",userTicket);
+        }
+        return user;
     }
 }

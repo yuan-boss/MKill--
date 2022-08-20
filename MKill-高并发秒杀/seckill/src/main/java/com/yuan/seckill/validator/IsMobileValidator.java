@@ -1,4 +1,4 @@
-package com.yuan.seckill.utils.vo;
+package com.yuan.seckill.validator;
 
 import com.yuan.seckill.utils.ValidatorUtil;
 import com.yuan.seckill.validator.IsMobile;

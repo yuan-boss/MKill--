@@ -5,6 +5,9 @@ import com.yuan.seckill.entity.User;
 import com.yuan.seckill.utils.vo.LoginVo;
 import com.yuan.seckill.utils.vo.RespBean;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * <p>
  *  服务类
@@ -22,5 +25,14 @@ public interface IUserService extends IService<User> {
      * @Param
      * @return
      **/
-    RespBean doLogin(LoginVo loginVo);
+    RespBean doLogin(LoginVo loginVo, HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * @Author yuan_boss
+     * @Description 根据cookie获取用户
+     * @Date 10:31 2022/8/20
+     * @Param
+     * @return
+     **/
+    User getUserByCookie(String userTicket,HttpServletRequest request,HttpServletResponse response);
 }

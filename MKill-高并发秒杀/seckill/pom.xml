@@ -16,6 +16,21 @@
     </properties>
 
     <dependencies>
+<!--        spring data redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+<!--    commons-pool2 对象池依赖  2.0版本的spring-data-redis使用的是lettuce客户端，他线程安全，可能要用到对象池    -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+<!--        spring session 依赖-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session-data-redis</artifactId>-->
+<!--        </dependency>-->
 <!--        MD5 依赖-->
         <dependency>
             <groupId>commons-codec</groupId>

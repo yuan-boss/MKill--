@@ -2,8 +2,8 @@ package com.yuan.seckill.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yuan.seckill.entity.User;
-import com.yuan.seckill.utils.vo.LoginVo;
-import com.yuan.seckill.utils.vo.RespBean;
+import com.yuan.seckill.vo.LoginVo;
+import com.yuan.seckill.vo.RespBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,7 +1,7 @@
 package com.yuan.seckill.exception;
 
-import com.yuan.seckill.utils.vo.RespBean;
-import com.yuan.seckill.utils.vo.RespBeanEnum;
+import com.yuan.seckill.vo.RespBean;
+import com.yuan.seckill.vo.RespBeanEnum;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

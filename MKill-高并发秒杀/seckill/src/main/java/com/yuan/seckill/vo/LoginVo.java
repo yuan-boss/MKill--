@@ -1,4 +1,4 @@
-package com.yuan.seckill.utils.vo;
+package com.yuan.seckill.vo;
 
 import com.yuan.seckill.validator.IsMobile;
 import lombok.Data;

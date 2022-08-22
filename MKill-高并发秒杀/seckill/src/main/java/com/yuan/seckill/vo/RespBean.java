@@ -1,4 +1,4 @@
-package com.yuan.seckill.utils.vo;
+package com.yuan.seckill.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

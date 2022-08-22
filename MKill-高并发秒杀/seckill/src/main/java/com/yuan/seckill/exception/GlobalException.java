@@ -1,6 +1,6 @@
 package com.yuan.seckill.exception;
 
-import com.yuan.seckill.utils.vo.RespBeanEnum;
+import com.yuan.seckill.vo.RespBeanEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -2,9 +2,12 @@ package com.yuan.seckill.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yuan.seckill.entity.Goods;
+import com.yuan.seckill.exception.GlobalException;
 import com.yuan.seckill.mapper.GoodsMapper;
 import com.yuan.seckill.service.IGoodsService;
 import com.yuan.seckill.vo.GoodsVo;
+import com.yuan.seckill.vo.RespBean;
+import com.yuan.seckill.vo.RespBeanEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +49,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
      **/
     @Override
     public GoodsVo findGoodsVoByGoodsId(Long goodsId) {
+        if (goodsId == null){
+            throw new GlobalException(RespBeanEnum.EMPTY_SECKILLGOOD);
+        }
         return goodsMapper.findGoodsVoByGoodsId(goodsId);
     }
 }

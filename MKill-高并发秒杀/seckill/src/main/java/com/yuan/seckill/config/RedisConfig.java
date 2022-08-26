@@ -1,10 +1,13 @@
 package com.yuan.seckill.config;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.sun.org.apache.xpath.internal.operations.String;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -35,5 +38,14 @@ public class RedisConfig {
 
 
         return redisTemplate;
+    }
+    @Bean
+    public DefaultRedisScript<Long> script(){
+        DefaultRedisScript<Long> redisScrip = new DefaultRedisScript<>();
+        //lock.lua脚本位置和application.yml同级目录
+        redisScrip.setLocation(new ClassPathResource("stock.lua"));
+        redisScrip.setResultType(Long.class);
+        return redisScrip;
+
     }
 }

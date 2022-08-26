@@ -27,6 +27,8 @@ import java.util.List;
 public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private UserArgumentResolvers userArgumentResolvers;
+    @Autowired
+    private AccessLimitInterceptor accessLimitInterceptor;
 
 
 
@@ -39,5 +41,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(userArgumentResolvers);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(accessLimitInterceptor);
     }
 }
